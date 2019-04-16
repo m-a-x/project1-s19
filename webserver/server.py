@@ -180,6 +180,7 @@ def create_submit():
   username = str(request.form['username'])
   password = str(request.form['password'])
   print(username, password)
+  return redirect('/')
 
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
