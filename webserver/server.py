@@ -173,6 +173,13 @@ def index():
 def create():
   return render_template("create.html")
 
+  
+
+@app.route("/create_submit", methods=['POST'])
+def create_submit():
+  username = str(request.form['username'])
+  password = str(request.form['password'])
+  print(username, password)
 
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
