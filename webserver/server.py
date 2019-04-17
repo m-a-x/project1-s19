@@ -254,7 +254,7 @@ def group_posts():
         })
     
     
-    
+    context = postlist
     
     
     # FINISH ME
@@ -264,7 +264,7 @@ def group_posts():
     
     
     
-    return redirect('/')
+    return render_template('group_posts.html', data=context, group_chosen=group_chosen)
 
 @app.route('/create_favorites_list', methods=['POST'])
 def create_favorites_list():

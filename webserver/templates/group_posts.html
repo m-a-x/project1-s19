@@ -1,0 +1,27 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<h1>Posts from {{group_chosen}}</h1>
+  <div>
+
+    {% for n in data %}
+    <tr>
+       <td> {{n.pid}} </td>
+       <td> {{n.name}} </td>
+       <td> {{n.post_text}} </td>
+       <td> {{n.img_link}} </td>
+       <td> {{n.num_reactions}} </td>
+     </tr>
+    {% endfor %}
+  </div>
+
+</body>
+
+
+</html>
