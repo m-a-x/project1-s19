@@ -121,11 +121,7 @@ def index():
     #
     # example of a database query
     #
-    cursor = g.conn.execute("SELECT name FROM test")
-    names = []
-
-    for result in cursor:
-        names.append(result['name'])  # can also be accessed using result[0]
+     # can also be accessed using result[0]
     cursor.close()
     if not session.get('logged_in'):
         return render_template('login.html')
@@ -165,7 +161,22 @@ def index():
     #
     return render_template("index.html", **context)
 
-#
+
+@app.route('/login', methods=['POST'])
+def login():
+    cursor = g.conn.execute("SELECT username, password FROM webappusers")
+    logins = {}
+    err_msg = ''
+    for result in cursor:
+        logins[result['username']] = result['password']
+    try:
+        if logins[str(request.form['username'])] == str(request.form['password']):
+            session['logged_in'] = True
+            return redirect('/')
+        else:
+            err_msg = 'Incorrect Username / Password'
+            return render_template('login.html',**err_msg)
+    return render_template("create.html")
 # This is an example of a different path.  You can see it at
 #
 #     localhost:8111/another
@@ -195,10 +206,10 @@ def add():
     return redirect('/')
 
 
-@app.route('/login')
-def login():
-    abort(401)
-    this_is_never_executed()
+# @app.route('/login')
+# def login():
+#     abort(401)
+#     this_is_never_executed()
 
 
 if __name__ == "__main__":
