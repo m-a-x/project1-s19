@@ -10,6 +10,13 @@
 <h1>Posts from {{group_chosen}}</h1>
   <div>
     <table>
+      <tr>
+         <td> post id </td>
+         <td> post author </td>
+         <td> post text </td>
+         <td> post img url </td>
+         <td> number of reactions </td>
+      </tr>
       {% for n in data %}
       <tr>
          <td> {{n.pid}} </td>

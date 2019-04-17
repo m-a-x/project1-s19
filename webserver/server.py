@@ -244,10 +244,13 @@ def group_posts():
     cursor = g.conn.execute(text(cmd), gid=gid_chosen)
     postlist = []
     for result in cursor:
+        img_link = result['img_link']
+        if img_link is None:
+            img_link = ''
         postlist.append({
             'pid': result['pid'],
             'fbid': result['fbid'],
-            'img_link': result['img_link'],
+            'img_link': img_link,
             'num_reactions': result['num_reactions'],
             'post_text': result['post_text'],
             'name': result['name']
