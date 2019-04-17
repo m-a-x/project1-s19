@@ -177,16 +177,16 @@ def login():
 
 @app.route('/add_meme_to_list', methods=['POST'])
 def add_meme_to_list():
-    list_chosen = str(request.form['list_choice'])
-    lid_chosen = session['displayname_to_lid'][list_chosen]
     try:
+        list_chosen = str(request.form['list_choice'])
+        lid_chosen = session['displayname_to_lid'][list_chosen]
         post_chosen = request.form['post_choice']
         cmd = 'INSERT INTO favoriteslistsposts(lid, pid) VALUES (:list_id, :post_id)'
         g.conn.execute(text(cmd), list_id=lid_chosen, post_id=post_chosen)
 
         return redirect('/')
     except:
-        return render_template("index.html")
+        return redirect('/')
 
 @app.route('/view_favorites_list', methods=['POST'])
 def view_favorites_list():
