@@ -189,7 +189,6 @@ def add_meme_to_list():
 @app.route('/view_favorites_list', methods=['POST'])
 def view_favorites_list():
     list_chosen = str(request.form['list_choice'])
-    return list_chosen
     lid_chosen = session['displayname_to_lid'][list_chosen]
 
     cmd = "SELECT * FROM posts JOIN favoriteslistsposts ON posts.pid=favoriteslistsposts.pid WHERE favoriteslistsposts.lid = :lid"
