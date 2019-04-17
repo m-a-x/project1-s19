@@ -19,8 +19,9 @@
          <td> number of reactions </td>
       </tr>
       {% for n in data %}
-      <input type="radio" name='post_choice' id={{n.pid}} value={{n.pid}}> add this </input><br>
+      
       <tr>
+         <td><input type="radio" name='post_choice' id={{n.pid}} value={{n.pid}}> add this </input> </td>
          <td> {{n.pid}} </td>
          <td> {{n.name}} </td>
          <td> {{n.post_text}} </td>
@@ -31,11 +32,7 @@
     </table>
   </div>
 
-<div>
-    {% for n in data %}
-    <div>{{n}}</div>
-    {% endfor %}
-  </div>
+
 <h2> add an above post to one of your meme lists </h2>
 
     {% for n in listnames %}
