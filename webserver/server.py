@@ -144,9 +144,9 @@ def index():
     displayname_to_lid ={}
     for listdata in listlist:
         if names[listdata['listname']] > 1:
-            displayname = name + ' (' + str(listdata['lid']) + ')'
+            displayname = listdata['listname'] + ' (' + str(listdata['lid']) + ')'
         else:
-            displayname = name
+            displayname = listdata['listname']
         displayname_to_lid[displayname] = listdata['lid']
     session['displayname_to_lid'] = displayname_to_lid
     context = dict(data=list(displayname_to_lid.keys()))
