@@ -168,16 +168,16 @@ def login():
     err_msg = ''
     for result in cursor:
         logins[result['username']] = result['password']
-#     try:
-    if logins[str(request.form['username'])] == str(request.form['password']):
-        session['logged_in'] = True
-        return redirect('/')
-    else:
+    try:
+        if logins[str(request.form['username'])] == str(request.form['password']):
+            session['logged_in'] = True
+            return redirect('/')
+        else:
+            err_msg = dict(data=['Incorrect Username / Password'])
+            return render_template('login.html',**err_msg)
+    except:
         err_msg = dict(data=['Incorrect Username / Password'])
         return render_template('login.html',**err_msg)
-#     except:
-#         err_msg = dict(data=['Incorrect Username / Password'])
-#         return render_template('login.html',**err_msg)
 #     return render_template("create.html")
 # This is an example of a different path.  You can see it at
 #
@@ -195,8 +195,11 @@ def create():
 def create_submit():
     username = str(request.form['username'])
     password = str(request.form['password'])
+    cmd = 'INSERT INTO webappusers(username, password) VALUES (:uname), (:pword)'
+    g.conn.execute(text(cmd), uname=username, pword=password)
+    context == dict(data=['account creation successful, please log in'])
     print(username, password)
-    return redirect('/')
+    return redirect('/login', **context)
 
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
