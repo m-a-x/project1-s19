@@ -195,7 +195,7 @@ def create():
 def create_submit():
     username = str(request.form['username'])
     password = str(request.form['password'])
-    cmd = 'INSERT INTO webappusers(username, password) VALUES (:uname), (:pword)'
+    cmd = 'INSERT INTO webappusers(username, password) VALUES (:uname, :pword)'
     g.conn.execute(text(cmd), uname=username, pword=password)
     context == dict(data=['account creation successful, please log in'])
     print(username, password)
