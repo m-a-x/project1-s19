@@ -216,7 +216,7 @@ def add():
 
 if __name__ == "__main__":
     import click
-
+    app.secret_key = 'dont tell its a secret'
     @click.command()
     @click.option('--debug', is_flag=True)
     @click.option('--threaded', is_flag=True)
