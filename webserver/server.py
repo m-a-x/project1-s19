@@ -152,7 +152,7 @@ def index():
     #     <div>{{n}}</div>
     #     {% endfor %}
     #
-    context = dict(data=names)
+#     context = dict(data=names)
 
     #
     # render_template looks in the templates/ folder for files.
@@ -173,10 +173,10 @@ def login():
             session['logged_in'] = True
             return redirect('/')
         else:
-            err_msg = 'Incorrect Username / Password'
+            err_msg = dict(list('Incorrect Username / Password'))
             return render_template('login.html',**err_msg)
     except:
-        err_msg = 'Incorrect Username / Password'
+        err_msg = dict(list('Incorrect Username / Password'))
         return render_template('login.html',**err_msg)
 #     return render_template("create.html")
 # This is an example of a different path.  You can see it at
