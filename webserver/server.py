@@ -186,6 +186,32 @@ def add_meme_to_list():
     
     return redirect('/')
 
+@app.route('/view_favorites_list', methods=['POST'])
+def view_favorites_list():
+    list_chosen = str(request.form['list_choice'])
+    lid_chosen = session['displayname_to_lid'][list_chosen]
+    
+    cmd = "SELECT * FROM posts JOIN favoriteslistsposts ON posts.pid=favoriteslistsposts.pid WHERE favoriteslistsposts.lid = :lid"
+    cursor = g.conn.execute(text(cmd), lid=lid_chosen)
+    postlist = []
+    for result in cursor:
+        img_link = result['img_link']
+        if img_link is None:
+            img_link = ''
+        postlist.append({
+            'pid': result['pid'],
+            'fbid': result['fbid'],
+            'img_link': img_link,
+            'num_reactions': result['num_reactions'],
+            'post_text': result['post_text'],
+            'name': result['name']
+        })
+    context = postlist
+    
+    listnames = list(displayname_to_lid.keys())
+    
+    return render_template('view_favorites_list.html', data=context, list_chosen=list_chosen)
+
 @app.route('/create')
 def create():
     return render_template("create.html")

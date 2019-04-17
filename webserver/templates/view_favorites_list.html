@@ -7,12 +7,10 @@
   </style>
 
 
-<h1>Posts from {{group_chosen}}</h1>
-<form method="POST" action="/add_meme_to_list">
+<h1>Posts in your list: {{list_chosen}}</h1>
   <div>
     <table>
       <tr>
-         <td> selection</td>
          <td> post id </td>
          <td> post author </td>
          <td> post text </td>
@@ -22,7 +20,6 @@
       {% for n in data %}
       
       <tr>
-         <td><input type="radio" name='post_choice' id={{n.pid}} value={{n.pid}}></input> </td>
          <td> {{n.pid}} </td>
          <td> {{n.name}} </td>
          <td> {{n.post_text}} </td>
@@ -34,13 +31,6 @@
   </div>
 
 
-<h2> add an above post to one of your meme lists </h2>
-
-    {% for n in listnames %}
-    <input type="radio" name='list_choice' id={{n}} value={{n}}> {{n}} </input>
-    {% endfor %}
-     <input type="submit" value="Add post to selected list">
-</form>
 </body>
 
 
