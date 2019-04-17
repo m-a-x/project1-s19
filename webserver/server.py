@@ -207,7 +207,6 @@ def view_favorites_list():
         })
     context = postlist
     
-    listnames = list(displayname_to_lid.keys())
     
     return render_template('view_favorites_list.html', data=context, list_chosen=list_chosen)
 
