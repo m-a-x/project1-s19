@@ -182,7 +182,7 @@ def add_meme_to_list():
     
     post_chosen = request.form['post_choice']
     cmd = 'INSERT INTO favoriteslistsposts(lid, pid) VALUES (:list_id, :post_id)'
-    g.conn.execute(text(cmd), list_id=lid, list_id=lid_chosen, post_id=post_chosen)
+    g.conn.execute(text(cmd), list_id=lid_chosen, post_id=post_chosen)
     
     return redirect('/')
 
