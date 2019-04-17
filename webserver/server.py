@@ -168,16 +168,16 @@ def login():
     err_msg = ''
     for result in cursor:
         logins[result['username']] = result['password']
-    try:
-        if logins[str(request.form['username'])] == str(request.form['password']):
-            session['logged_in'] = True
-            return redirect('/')
-        else:
-            err_msg = dict(data=['Incorrect Username / Password'])
-            return render_template('login.html',**err_msg)
-    except:
+#     try:
+    if logins[str(request.form['username'])] == str(request.form['password']):
+        session['logged_in'] = True
+        return redirect('/')
+    else:
         err_msg = dict(data=['Incorrect Username / Password'])
         return render_template('login.html',**err_msg)
+#     except:
+#         err_msg = dict(data=['Incorrect Username / Password'])
+#         return render_template('login.html',**err_msg)
 #     return render_template("create.html")
 # This is an example of a different path.  You can see it at
 #
