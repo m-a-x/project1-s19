@@ -122,7 +122,6 @@ def index():
     # example of a database query
     #
      # can also be accessed using result[0]
-    cursor.close()
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
