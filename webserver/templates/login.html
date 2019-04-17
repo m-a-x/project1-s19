@@ -6,7 +6,13 @@
     }
   </style>
 
-<div> {{err_msg}}</div>
+  <div>{{data}}</div>
+
+  <div>
+    {% for n in data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
 <body>
   <h1>Please Log in</h1>
 
