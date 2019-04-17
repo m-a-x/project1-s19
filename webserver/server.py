@@ -211,7 +211,6 @@ def view_favorites_list():
         })
     context = postlist
     
-    
     return render_template('view_favorites_list.html', data=context, list_chosen=list_chosen)
 
 @app.route('/create')
@@ -284,25 +283,12 @@ def create_submit():
     username = str(request.form['username'])
     password = str(request.form['password'])
     cmd = 'INSERT INTO webappusers(username, password) VALUES (:uname, :pword)'
-    g.conn.execute(text(cmd), uname=username, pword=password)
-    context = dict(data=['account creation successful, please log in'])
-    print(username, password)
+    try:
+        g.conn.execute(text(cmd), uname=username, pword=password)
+        context = dict(data=['account creation successful, please log in'])
+    except:
+        context = dict(data=['username already in use, please choose a different username'])
     return render_template('login.html', **context)
-
-# Example of adding new data to the database
-@app.route('/add', methods=['POST'])
-def add():
-    name = request.form['name']
-    print name
-    cmd = 'INSERT INTO test(name) VALUES (:name1), (:name2)'
-    g.conn.execute(text(cmd), name1=name, name2=name)
-    return redirect('/')
-
-
-# @app.route('/login')
-# def login():
-#     abort(401)
-#     this_is_never_executed()
 
 
 if __name__ == "__main__":
