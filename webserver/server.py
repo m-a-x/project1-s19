@@ -239,9 +239,11 @@ def group_lists():
 
 @app.route('/group_posts', methods=['POST'])
 def group_posts():
-    group_chosen = str(request.form['options'])
-    gid_chosen = session['groupname_to_gid'][group_chosen]
-    
+    try:
+        group_chosen = str(request.form['options'])
+        gid_chosen = session['groupname_to_gid'][group_chosen]
+    except:
+        return redirect('/group_posts')
     cmd = "SELECT * FROM posts JOIN fbusers ON posts.fbid=fbusers.fbid WHERE posts.gid = :gid"
     cursor = g.conn.execute(text(cmd), gid=gid_chosen)
     postlist = []
