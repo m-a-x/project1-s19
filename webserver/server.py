@@ -26,18 +26,6 @@ tmpl_dir = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
 
-
-# XXX: The Database URI should be in the format of:
-#
-#     postgresql://USER:PASSWORD@<IP_OF_POSTGRE_SQL_SERVER>/<DB_NAME>
-#
-# For example, if you had username ewu2493, password foobar, then the following line would be:
-#
-#     DATABASEURI = "postgresql://ewu2493:foobar@<IP_OF_POSTGRE_SQL_SERVER>/postgres"
-#
-# For your convenience, we already set it to the class database
-
-# Use the DB credentials you received by e-mail
 DB_USER = "mwm2154"
 DB_PASSWORD = "YOfW6Nutxe"
 
@@ -45,21 +33,10 @@ DB_SERVER = "w4111.cisxo09blonu.us-east-1.rds.amazonaws.com"
 
 DATABASEURI = "postgresql://"+DB_USER+":"+DB_PASSWORD+"@"+DB_SERVER+"/w4111"
 
-
 #
 # This line creates a database engine that knows how to connect to the URI above
 #
 engine = create_engine(DATABASEURI)
-
-
-# Here we create a test table and insert some values in it
-engine.execute("""DROP TABLE IF EXISTS test;""")
-engine.execute("""CREATE TABLE IF NOT EXISTS test (
-  id serial,
-  name text
-);""")
-engine.execute(
-    """INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
 
 
 @app.before_request
@@ -79,7 +56,6 @@ def before_request():
         traceback.print_exc()
         g.conn = None
 
-
 @app.teardown_request
 def teardown_request(exception):
     """
@@ -91,20 +67,6 @@ def teardown_request(exception):
     except Exception as e:
         pass
 
-
-#
-# @app.route is a decorator around index() that means:
-#   run index() whenever the user tries to access the "/" path using a GET request
-#
-# If you wanted the user to go to e.g., localhost:8111/foobar/ with POST or GET then you could use
-#
-#       @app.route("/foobar/", methods=["POST", "GET"])
-#
-# PROTIP: (the trailing / in the path is important)
-#
-# see for routing: http://flask.pocoo.org/docs/0.10/quickstart/#routing
-# see for decorators: http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
-#
 @app.route('/')
 def index():
     """
@@ -121,9 +83,6 @@ def index():
     print request.args
     
     #
-    # example of a database query
-    #
-     # can also be accessed using result[0]
     if not session.get('logged_in'):
         return render_template('login.html')
 
@@ -151,7 +110,6 @@ def index():
     session['displayname_to_lid'] = displayname_to_lid
     context = dict(data=list(displayname_to_lid.keys()))
 
-    #
     return render_template("index.html", **context)
 
 
@@ -173,7 +131,6 @@ def login():
     except:
         err_msg = dict(data=['Incorrect Username / Password'])
         return render_template('login.html',**err_msg)
-#     return render_template("create.html")
 
 @app.route('/add_meme_to_list', methods=['POST'])
 def add_meme_to_list():
@@ -210,7 +167,6 @@ def view_favorites_list():
             'post_text': result['post_text']
         })
     context = postlist
-    
     return render_template('view_favorites_list.html', data=context, list_chosen=list_chosen)
 
 @app.route('/create')
@@ -262,9 +218,7 @@ def group_posts():
     
     
     context = postlist
-    
     displayname_to_lid = session['displayname_to_lid']
-    
     listnames = list(displayname_to_lid.keys())
     
     return render_template('group_posts.html', data=context, group_chosen=group_chosen, listnames=listnames)
