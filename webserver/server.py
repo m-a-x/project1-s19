@@ -199,7 +199,7 @@ def create_submit():
     g.conn.execute(text(cmd), uname=username, pword=password)
     context = dict(data=['account creation successful, please log in'])
     print(username, password)
-    return render_template('/login', **context)
+    return render_template('login.html', **context)
 
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
