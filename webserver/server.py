@@ -270,7 +270,10 @@ def group_posts():
 
 @app.route('/create_favorites_list', methods=['POST'])
 def create_favorites_list():
+    
     listname = str(request.form['listname'])
+    if listname == '':
+        return redirect('/')
     cmd = 'INSERT INTO favoriteslists(lid, username, listname) VALUES (:list_id, :uname, :lname)'
     lid = random.randint(0, 99999999)
     g.conn.execute(text(cmd), list_id=lid, uname=session['username'], lname=listname)
