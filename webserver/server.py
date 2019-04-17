@@ -215,7 +215,7 @@ def login():
 def create():
     return render_template("create.html")
 
-@app.route('create_favorites_list', methods=['POST'])
+@app.route('/create_favorites_list', methods=['POST'])
 def create_favorites_list():
     listname = str(request.form['listname'])
     cmd = 'INSERT INTO favoriteslists(lid, username, listname) VALUES (:list_id, :uname, :lname)'
