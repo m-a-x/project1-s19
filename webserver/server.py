@@ -176,7 +176,10 @@ def login():
         else:
             err_msg = 'Incorrect Username / Password'
             return render_template('login.html',**err_msg)
-    return render_template("create.html")
+    except:
+        err_msg = 'Incorrect Username / Password'
+        return render_template('login.html',**err_msg)
+#     return render_template("create.html")
 # This is an example of a different path.  You can see it at
 #
 #     localhost:8111/another
