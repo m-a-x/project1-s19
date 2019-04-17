@@ -37,7 +37,7 @@
 <h2> add an above post to one of your meme lists </h2>
 
     {% for n in listnames %}
-    <input type="radio" name='list_choice' id={{n}} value={{n}}> {{n}} </input>
+    <input type="radio" name='list_choice' id={{n}} value='{{n}}'> {{n}} </input>
     {% endfor %}
      <input type="submit" value="Add post to selected list">
 </form>
