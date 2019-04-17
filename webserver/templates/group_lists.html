@@ -9,9 +9,11 @@
 
 <h1>Meme groups to peruse</h1>
   <div>
+    <form method="POST" action="/group_posts">
     {% for n in data %}
     <input type="radio" name={{n}} id={{n}} value={{n}}> {{n}} </input><br>
     {% endfor %}
+     <input type="submit" value="Go to Selected Group's Memes">
   </div>
 
 </body>

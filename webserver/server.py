@@ -230,7 +230,7 @@ def group_lists():
         # group populations
         group_data[result['gid']][1] = result['count']
     
-    group_ui_labels = [t[0] + ' (' + str(t[1]) + ' members)' for t in group_data.values()]
+    group_ui_labels = [t[0] + ' | ' + str(t[1]) + ' member(s)' for t in group_data.values()]
     context = dict(data=group_ui_labels)
     
     return render_template("group_lists.html", **context)
