@@ -142,8 +142,8 @@ def index():
             names[listdata['listname']] = 1
 
     displayname_to_lid ={}
-    for name, count in names.items():
-        if count > 1:
+    for listdata in listlist:
+        if names[listdata['listname']] > 1:
             displayname = name + ' (' + str(listdata['lid']) + ')'
         else:
             displayname = name
