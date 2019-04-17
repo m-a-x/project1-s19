@@ -178,6 +178,7 @@ def login():
 @app.route('/add_meme_to_list', methods=['POST'])
 def add_meme_to_list():
     list_chosen = str(request.form['list_choice'])
+    print(list_chosen)
     lid_chosen = session['displayname_to_lid'][list_chosen]
     
     post_chosen = request.form['post_choice']
