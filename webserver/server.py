@@ -179,12 +179,15 @@ def login():
 def add_meme_to_list():
     list_chosen = str(request.form['list_choice'])
     lid_chosen = session['displayname_to_lid'][list_chosen]
-    
-    post_chosen = request.form['post_choice']
-    cmd = 'INSERT INTO favoriteslistsposts(lid, pid) VALUES (:list_id, :post_id)'
-    g.conn.execute(text(cmd), list_id=lid_chosen, post_id=post_chosen)
-    
-    return redirect('/')
+    try:
+        post_chosen = request.form['post_choice']
+        cmd = 'INSERT INTO favoriteslistsposts(lid, pid) VALUES (:list_id, :post_id)'
+        g.conn.execute(text(cmd), list_id=lid_chosen, post_id=post_chosen)
+
+        return redirect('/')
+    except:
+        context = dict(data=['could not add any posts to ' + list_chosen])
+        return render_template("index.html", **context)
 
 @app.route('/view_favorites_list', methods=['POST'])
 def view_favorites_list():
