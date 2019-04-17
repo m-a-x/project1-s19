@@ -173,10 +173,10 @@ def login():
             session['logged_in'] = True
             return redirect('/')
         else:
-            err_msg = dict(data=list('Incorrect Username / Password'))
+            err_msg = dict(data=['Incorrect Username / Password'])
             return render_template('login.html',**err_msg)
     except:
-        err_msg = dict(data=list('Incorrect Username / Password'))
+        err_msg = dict(data=['Incorrect Username / Password'])
         return render_template('login.html',**err_msg)
 #     return render_template("create.html")
 # This is an example of a different path.  You can see it at
