@@ -10,7 +10,7 @@
 <h1>Meme groups to peruse</h1>
   <div>
     {% for n in data %}
-    <div>{{n}}</div>
+    <input type="radio" name={{n}} id={{n}} value={{n}}> {{n}} </input><br>
     {% endfor %}
   </div>
 
