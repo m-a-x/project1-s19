@@ -203,8 +203,7 @@ def view_favorites_list():
             'fbid': result['fbid'],
             'img_link': img_link,
             'num_reactions': result['num_reactions'],
-            'post_text': result['post_text'],
-            'name': result['name']
+            'post_text': result['post_text']
         })
     context = postlist
     
