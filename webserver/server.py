@@ -186,14 +186,15 @@ def add_meme_to_list():
 
         return redirect('/')
     except:
-        context = dict(data=['could not add any posts to ' + list_chosen])
-        return render_template("index.html", **context)
+        return render_template("index.html")
 
 @app.route('/view_favorites_list', methods=['POST'])
 def view_favorites_list():
-    list_chosen = str(request.form['list_choice'])
-    lid_chosen = session['displayname_to_lid'][list_chosen]
-
+    try:
+        list_chosen = str(request.form['list_choice'])
+        lid_chosen = session['displayname_to_lid'][list_chosen]
+    except:
+        return render_template("index.html")
     cmd = "SELECT * FROM posts JOIN favoriteslistsposts ON posts.pid=favoriteslistsposts.pid WHERE favoriteslistsposts.lid = :lid"
     cursor = g.conn.execute(text(cmd), lid=lid_chosen)
     postlist = []
