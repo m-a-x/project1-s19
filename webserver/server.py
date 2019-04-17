@@ -215,6 +215,26 @@ def login():
 def create():
     return render_template("create.html")
 
+@app.route('/group_lists')
+def group_lists():
+    group_data = {}
+    groupname_to_gid = {}
+    cursor = g.conn.execute("SELECT gid, name FROM fbgroups")
+    for result in cursor:
+        group_data[result['gid']] = (result['name'], 0)  # id, counts in next block of code
+        groupname_to_gid[result['name']] = result['gid']
+    session['groupname_to_gid'] = groupname_to_gid
+    
+    cursor = g.conn.execute("SELECT gid, COUNT(gid) FROM grouppopulations GROUP BY gid")
+    for result in cursor:
+        # group populations
+        group_data[result['gid']][1] = result['count']
+    
+    group_ui_labels = [t[0] + ' (' + str(t[1]) + ' members)' for t in group_data.values()]
+    context = dict(data=group_ui_labels)
+    
+    return render_template("group_lists.html", **context)
+
 @app.route('/create_favorites_list', methods=['POST'])
 def create_favorites_list():
     listname = str(request.form['listname'])
