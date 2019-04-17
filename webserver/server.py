@@ -125,7 +125,7 @@ def index():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return 'Hello Boss'
+        return render_template('index.html')
     #
     # Flask uses Jinja templates, which is an extension to HTML where you can
     # pass data to a template and dynamically generate HTML based on the data
@@ -171,6 +171,7 @@ def login():
     try:
         if logins[str(request.form['username'])] == str(request.form['password']):
             session['logged_in'] = True
+            session['username'] = str(request.form['username'])
             return redirect('/')
         else:
             err_msg = dict(data=['Incorrect Username / Password'])
