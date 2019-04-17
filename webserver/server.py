@@ -221,7 +221,7 @@ def group_lists():
     groupname_to_gid = {}
     cursor = g.conn.execute("SELECT gid, name FROM fbgroups")
     for result in cursor:
-        group_data[result['gid']] = (result['name'], 0)  # id, counts in next block of code
+        group_data[result['gid']] = [result['name'], 0]  # id, counts in next block of code
         groupname_to_gid[result['name']] = result['gid']
     session['groupname_to_gid'] = groupname_to_gid
     
