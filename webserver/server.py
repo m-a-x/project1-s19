@@ -235,6 +235,37 @@ def group_lists():
     
     return render_template("group_lists.html", **context)
 
+@app.route('/group_posts', methods=['POST'])
+def group_posts():
+    group_chosen = str(request.form['options'])
+    gid_chosen = session['groupname_to_gid'][group_chosen]
+    
+    cmd = "SELECT * FROM posts JOIN fbusers ON posts.fbid=fbusers.fbid WHERE posts.gid = :gid"
+    cursor = g.conn.execute(text(cmd), gid=gid_chosen)
+    postlist = []
+    for result in cursor:
+        postlist.append({
+            'pid': result['pid'],
+            'fbid': result['fbid'],
+            'img_link': result['img_link'],
+            'num_reactions': result['num_reactions'],
+            'post_text': result['post_text'],
+            'name': result['name']
+        })
+    
+    
+    
+    
+    
+    # FINISH ME
+    
+    
+    
+    
+    
+    
+    return redirect('/')
+
 @app.route('/create_favorites_list', methods=['POST'])
 def create_favorites_list():
     listname = str(request.form['listname'])

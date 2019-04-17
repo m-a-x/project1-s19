@@ -11,7 +11,7 @@
   <div>
     <form method="POST" action="/group_posts">
     {% for n in data %}
-    <input type="radio" name={{n}} id={{n}} value={{n}}> {{n}} </input><br>
+    <input type="radio" name='options' id={{n}} value={{n}}> {{n}} </input><br>
     {% endfor %}
      <input type="submit" value="Go to Selected Group's Memes">
   </div>
