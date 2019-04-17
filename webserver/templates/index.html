@@ -7,7 +7,12 @@
   </style>
 
 
-<p><a href="/meme_lists">my meme lists</a></p>
+<h1>my meme lists</h1>
+  <div>
+    {% for n in data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
 <form method="POST" action="/create_favorites_list">
 <p>Name of New Favorites List: <input type="text" name="listname"> <input type="submit" value="Create List"></p>
 </form>

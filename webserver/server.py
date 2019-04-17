@@ -19,6 +19,8 @@ import os
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, Response, session
+import random
+
 
 tmpl_dir = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'templates')
@@ -117,15 +119,37 @@ def index():
 
     # DEBUG: this is debugging code to see what request looks like
     print request.args
-
+    
     #
     # example of a database query
     #
      # can also be accessed using result[0]
     if not session.get('logged_in'):
         return render_template('login.html')
-    else:
-        return render_template('index.html')
+
+    cmd = "SELECT lid, username, listname FROM favoriteslists WHERE username = :uname"
+    cursor = g.conn.execute(text(cmd), uname=session['username'])
+    listlist = []
+    names = {}
+    for result in cursor:
+        listdata = {}
+        listdata['lid'] = result['lid']
+        listdata['listname'] = result['listname']
+        listlist.append(listdata)
+        if listdata['listname'] in names.keys():
+            names[listdata['listname']] += 1
+        else:
+            names[listdata['listname']] = 1
+
+    displayname_to_lid ={}
+    for name, count in names.items():
+        if count > 1:
+            displayname = name + ' (' + str(listdata['lid']) + ')'
+        else:
+            displayname = name
+        displayname_to_lid[displayname] = listdata['lid']
+    session['displayname_to_lid'] = displayname_to_lid
+    context = dict(data=list(displayname_to_lid.keys()))
     #
     # Flask uses Jinja templates, which is an extension to HTML where you can
     # pass data to a template and dynamically generate HTML based on the data
@@ -191,7 +215,14 @@ def login():
 def create():
     return render_template("create.html")
 
-
+@app.route('create_favorites_list', methods=['POST'])
+def create_favorites_list():
+    listname = str(request.form['listname'])
+    cmd = 'INSERT INTO favoriteslists(lid, username, listname) VALUES (:list_id, :uname, :lname)'
+    lid = random.randint(0, 99999999)
+    g.conn.execute(text(cmd), list_id=lid, uname=username, lname=listname)
+    return render_template('index.html')
+    
 @app.route("/create_submit", methods=['POST'])
 def create_submit():
     username = str(request.form['username'])
