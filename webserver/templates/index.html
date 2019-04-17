@@ -11,14 +11,14 @@
   <div>
     <form method="POST" action="/view_favorites_list">
     {% for n in data %}
-    <input type="radio" name='list_choice' id={{n}} value={{n}}> {{n}} </input>
+    <input type="radio" name='list_choice' id={{n}} value="{{n}}"> {{n}} </input>
     {% endfor %}
     <input type="submit" value="View List Posts">
     </form>
   </div>
   <br>
 
-  
+
 <form method="POST" action="/create_favorites_list">
 <p>Name of New Favorites List: <input type="text" name="listname"> <input type="submit" value="Create List"></p>
 </form>
